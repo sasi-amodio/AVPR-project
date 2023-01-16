@@ -8,16 +8,18 @@ close all;
 
 img = imread('peppers.png');
 img = rgb2gray(img);
+img = imresize(img, [75 75]);
+subregions = 16;
 imshow(img);
-featureVector = extractULDPFeatures(img);
+
+featureVector = extractULDPFeatures(img,subregions);
 
 
 %% extractULDPFeatures
 
 
-function featureVector = extractULDPFeatures(img)
+function featureVector = extractULDPFeatures(img,subregions)
 
-    subregions = 16;
     bins = 59;
     featureVector = [];
 
