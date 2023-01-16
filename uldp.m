@@ -9,11 +9,10 @@ close all;
 img = imread('peppers.png');
 img = rgb2gray(img);
 img = imresize(img, [75 75]);
-subregions = 16;
+subregions = 9;
 imshow(img);
 
 featureVector = extractULDPFeatures(img,subregions);
-
 
 %% extractULDPFeatures
 
@@ -124,7 +123,15 @@ function featureVector = extractULDPFeatures(img,subregions)
         end
     end
 
+    s = 0;
+    for i = 1:size(featureVector,2)
+        s = s + featureVector(i)^2;
+    end
+    
+    L2norm = sqrt(s);
+    featureVector = featureVector / L2norm;
 end
+
 
 
 %% getUniformPatterns
