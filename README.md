@@ -1,27 +1,60 @@
-# **Image Classification and Evaluation with CNN, LBP, HoG, and ULDP**
+# Breast Cancer Detection Using ULDP: A Computer-Aided Diagnosis (CAD) System
 
-This project demonstrates **image classification** and **evaluation** using various feature extraction methods such as **Convolutional Neural Networks (CNN)**, **Local Binary Patterns (LBP)**, **Histogram of Oriented Gradients (HoG)**, and **Universal Local Directional Patterns (ULDP)**. The goal is to classify images into different categories and evaluate the performance of each method using **Support Vector Machines (SVM)**.
+## Overview
 
-## **Project Overview**
+This repository implements a **Computer-Aided Diagnosis (CAD) system** for breast cancer detection, inspired by the paper **[‘Analysis of tissue abnormality and breast density in mammographic images using a local directional pattern’](https://www.sciencedirect.com/science/article/abs/pii/S0957417415005321)**. The system uses **Uniform Local Directional Pattern (ULDP)**, a robust feature extraction method, for classifying breast tissues based on density (fatty, glandular, dense) and distinguishing between benign and malignant masses.
 
-This project provides an end-to-end pipeline for image classification and evaluation. It utilizes several feature extraction techniques (CNN, LBP, HoG, ULDP) and compares their performance using machine learning algorithms (SVM). The main goal is to evaluate the ability of these techniques to classify images from a custom dataset.
+## Features
 
-The project includes the following components:
-- **Data Import**: Loading and organizing training and test data.
-- **Feature Extraction**: Using CNN, LBP, HoG, and ULDP to extract features from images.
-- **Model Training**: Training SVM models on the extracted features.
-- **Model Evaluation**: Evaluating performance using ROC curves, AUC, and confusion matrices.
+- **Mass/Normal Tissue Classification**: Differentiates between mass and normal tissue in mammograms.
+- **Breast Tissue Density Classification**: Classifies tissue as fatty, glandular, or dense.
+- **Effect of Density on Mass Classification**: Analyzes how breast tissue density impacts mass/normal classification.
 
-## **Features**
+## Databases
 
-- **Data Preprocessing**: Easily import and organize your dataset for training and testing.
-- **Multiple Feature Extraction Methods**: Support for CNN, LBP, HoG, and ULDP.
-- **Model Training**: SVM classifier using an RBF kernel to classify images.
-- **Evaluation**: ROC curves, AUC scores, and confusion matrix to assess the model's performance.
+1. **mini-MIAS**:  
+   - 322 images (161 women), with mass and normal ROIs.  
+   - [Link to mini-MIAS Database](http://peipa.essex.ac.uk/info/mias.html)
+   
+2. **INbreast**:  
+   - 410 digital mammograms from 115 women, with manually extracted mass and normal ROIs.  
+   - [Link to INbreast Database](https://www.kaggle.com/datasets/martholi/inbreast)
 
-## **Installation**
+## ULDP (Uniform Local Directional Pattern)
 
-1. **Clone the repository:**
+ULDP is a local descriptor that analyzes pixel neighborhoods using **Kirsch Compass Masks** to capture both edge directions and magnitudes. It improves classification accuracy by incorporating spatial information and normalizing the descriptor using the **L2-norm**.
 
-   ```bash
-   git clone https://github.com/yourusername/project-repo.git
+### Key Steps in ULDP:
+1. **Convolution**: Apply Kirsch masks to 3x3 neighborhoods in the image.
+2. **Pattern Encoding**: Generate uniform and non-uniform patterns.
+3. **Normalization**: Normalize using L2-norm and concatenate histograms from subregions.
+
+## Classifiers
+
+- **Linear SVM (LSVM)** and **Non-Linear SVM (NLSVM)** (RBF kernel).
+- **Multi-Class SVM** (for tissue density classification).
+- **k-fold Cross-validation** for hyperparameter tuning and performance evaluation.
+
+## Classification Tasks
+
+1. **Mass/Normal Classification**:  
+   - **ULDP** outperforms traditional descriptors (e.g., LBP, HoG, GLCM) with **LSVM**, achieving high AUC scores (up to **1.0** on INbreast).
+   
+2. **Breast Tissue Density Classification**:  
+   - Classifies tissue as fatty, glandular, or dense.  
+   - Best performance on the mini-MIAS database: **98% accuracy** (fatty/dense classification).
+
+3. **Effect of Breast Density on Mass Classification**:  
+   - Analyzes the impact of density (fatty, glandular, dense) on mass/normal classification.
+
+## Practical Implementation
+
+- **Best Results**: ULDP with **LSVM** for mass/normal classification achieved **AUC = 0.93** (mini-MIAS) and **AUC = 0.99** (INbreast).
+- For breast density classification, **MLP** outperformed other models with **98% accuracy**.
+
+## Future Work
+
+- Automate **ROI extraction** for a fully automated CAD system.
+- Integrate **ultrasound images** for a more comprehensive diagnostic tool.
+
+
