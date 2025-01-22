@@ -8,6 +8,7 @@ This repository implements a **Computer-Aided Diagnosis (CAD) system** for breas
   <img src="images/breast_masses.png" width="600"/>
 </div>
 
+## Features
 
 - **Mass/Normal Tissue Classification**: Differentiates between mass and normal tissue in mammograms.
 - **Breast Tissue Density Classification**: Classifies tissue as fatty, glandular, or dense.
