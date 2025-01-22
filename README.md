@@ -4,7 +4,10 @@
 
 This repository implements a **Computer-Aided Diagnosis (CAD) system** for breast cancer detection, inspired by the paper **[‘Analysis of tissue abnormality and breast density in mammographic images using a local directional pattern’](https://www.sciencedirect.com/science/article/abs/pii/S0957417415005321)**. The system uses **Uniform Local Directional Pattern (ULDP)**, a robust feature extraction method, for classifying breast tissues based on density (fatty, glandular, dense) and distinguishing between benign and malignant masses.
 
-## Features
+<div align="center">
+  <img src="images/breast_masses.png" width="600"/>
+</div>
+
 
 - **Mass/Normal Tissue Classification**: Differentiates between mass and normal tissue in mammograms.
 - **Breast Tissue Density Classification**: Classifies tissue as fatty, glandular, or dense.
